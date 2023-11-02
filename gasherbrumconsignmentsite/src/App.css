@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+#StoreOwnerContainer{
+  display:flex; 
+  flex-direction:row;
+  padding-left: 10px;
+}
+#storeCreation{
+  padding-left: 10%;
+}

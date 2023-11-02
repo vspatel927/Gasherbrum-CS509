@@ -17,6 +17,7 @@ function SiteManagerLogin(){
 
 return(
   <div>
+    <h1>Site Manager Login</h1><br></br>
   <input
     type="text"
     placeholder="Username"

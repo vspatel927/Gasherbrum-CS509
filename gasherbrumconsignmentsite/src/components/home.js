@@ -4,8 +4,8 @@ function Home(){
     return (
         <div>
           <ul>
-            <a href = "" onClick={() => navigate('/sitemanagerlogin') }>Site Manager Login</a>
-            {/* <a onClick={() => navigate('/storeownerlogin') }>Store Owner Login</a> */}
+            <a href = "" onClick={() => navigate('/sitemanagerlogin') }>Site Manager Login</a><br></br>
+            <a href = "" onClick={() => navigate('/storeownerlogin') }>Store Owner Login</a>
           </ul>
         </div>
     )
