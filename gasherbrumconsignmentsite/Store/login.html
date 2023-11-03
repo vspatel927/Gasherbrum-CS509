@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        body {
+          background-color: rgb(60, 194, 185);
+        }
+        </style>
+        </head>
+<body>
+
+<h2>Store Manager OR Store owner please log in here  </h2>
+
+
+  <form id="loginForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required><br><br>
+      
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+      
+      <label for="userRole">Select Role:</label>
+      <select id="userRole" name="userRole">
+          <option value="storeowner">Store Owner</option>
+          <option value="sitemanager">Site Manager</option>
+      </select><br><br>
+  <button type="submit">Login</button>
+      <button id="createStoreButton">Create account</button>
+      
+  </form>
+
+  
+</div>
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault(); // Prevent the form from submitting normally.
+
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      var userRole = document.getElementById("userRole").value;
+
+      if (userRole === "storeowner") {
+          // Redirect to the store owner page. Replace 'storeowner.html' with the actual URL.
+          window.location.href = 'storeowner.html';
+      } else if (userRole === "sitemanager") {
+          // Redirect to the site manager page. Replace 'sitemanager.html' with the actual URL.
+          window.location.href = 'sitemanager.html';
+      }
+  });
+</script>
+
+
+</body>
+</html>
