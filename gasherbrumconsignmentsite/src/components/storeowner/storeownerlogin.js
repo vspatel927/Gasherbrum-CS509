@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 const storeArray = [];
 function StoreOwnerLogin(){
@@ -7,19 +8,24 @@ function StoreOwnerLogin(){
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-        var check = false
-    storeArray.forEach(store => {
+  function handleLogin(){
 
-        if(username === store.name && password === store.password){
-            navigate(`/storeowner/${store.name}`, { state: { name: store.name } });
-            check = true
+        axios.post('https://394wko9go8.execute-api.us-east-2.amazonaws.com/storeOwnerLogin/storeOwnerLogin', {
+          name: username,
+          password: password,
+        })
+        .then(function (response) {
+          console.log(response);
+          if(response.data.statusCode === 200){
+            navigate(`/storeowner/${username}`, { state: { name: username } });
+          }
+          else{
+            alert('Incorrect credentials. Try again.')
+          }
+        })
+        .catch(function (error) {
+        });
         }
-    });
-    if(!check){
-        alert('Incorrect credentials')
-    }
-  };
 
 return(
   <div id = "StoreOwnerContainer">
@@ -28,13 +34,13 @@ return(
     <h2>Login to store</h2>
   <input
     type="text"
-    placeholder="Username"
+    placeholder="Store Name (Case Sensitive)"
     value={username}
     onChange={(e) => setUsername(e.target.value)}
   />
   <input
     type="password"
-    placeholder="Password"
+    placeholder="Password (Case Sensitive)"
     value={password}
     onChange={(e) => setPassword(e.target.value)}
   />
@@ -87,16 +93,23 @@ function StoreCreation(){
 );
 }
 
-const handleCreation = (storeName, storePassword, storeLatitude, storeLongtitude) => {
-    storeArray.push(
-        {
-            "name": storeName,
-            "password": storePassword,
-            "latitude": storeLatitude,
-            "longtitude": storeLongtitude
-        }
-    )
-    alert('Created store. Login now')
-  };
+function handleCreation(storeName, storePassword, storeLatitude, storeLongtitude) {
+
+   axios.post('https://229vplmvf1.execute-api.us-east-2.amazonaws.com/CreateStoreStage/createStore', {
+    name: storeName,
+    password: storePassword,
+    latitude: storeLatitude,
+    longitude: storeLongtitude
+  })
+  .then(function (response) {
+    console.log(response);
+    if(response.data.statusCode === 200){
+      alert('Created store. Login now')
+    }
+  })
+  .catch(function (error) {
+    alert('Store not created. Try again')
+  });
+  }
 
 export default StoreOwnerLogin

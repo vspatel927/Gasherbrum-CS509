@@ -1,49 +1,44 @@
 import axios from 'axios';
-import { boston, worcester } from '../../listofstores';
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 
 function SiteManager(){
-    const [listOfStores, setlistOfStores] = React.useState([ boston, worcester ] )
-    const arr = [];
-    for (let store of listOfStores) {
-        arr.push(
-            <div key={store.name}>
-            <h2>{store.name}</h2>
-            <button name = "Delete" onClick={() => deleteStore(store.name)}>Delete</button>
-            </div>
-        )
-    }
+    const [listOfStores, setlistOfStores] = useState([]);
 
-    return arr;
-
-
-//     axios.get('/stores')
-//   .then(function (response) {
-//     this.listOfStores = [ boston, worcester ] 
-
-//     for (let store of listOfStores) {
-//         <h2>{store.name}</h2>
-//     }
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     // handle error
-//     console.log(error);
-//   })
-//   .finally(function () {
-//     // always executed
-//   });
+    useEffect(() => {
+      axios
+        .get('https://f96at78893.execute-api.us-east-2.amazonaws.com/getStores/getStores')
+        .then((response) => setlistOfStores(response.data.body))
+        .catch(error => {
+         console.log(error);
+    });
+    }, [])
+  return (
+    <>
+          {listOfStores.map((store) => (
+        <div key={store.name}>
+         <h2>{store.name}</h2>
+         <button name = "Delete" onClick={() => deleteStore(store.name)}>Delete</button>
+         </div>          
+    ))}
+      </>
+    );
 
 function deleteStore(storeName){
-    listOfStores.forEach(element => {
-        if(storeName === element.name){
-            console.log(element.name)
-            const index = listOfStores.indexOf(element)
-            listOfStores.splice(index, 1)
-            setlistOfStores([...listOfStores])
-        }
-    });
+
+  axios.post('https://7zvx9g3sm9.execute-api.us-east-2.amazonaws.com/removeStore/removeStore', {
+    name: storeName,
+  })
+  .then(function (response) {
+    if(response.data.statusCode === 200){
+      const updatedList = listOfStores.filter(obj => obj.name !== storeName)
+      setlistOfStores(updatedList);
+
+    }
+  })
+  .catch(function (error) {
+    alert('Store not deleted. Try again')
+  });
 }
 
 }
