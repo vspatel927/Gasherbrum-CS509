@@ -11,15 +11,15 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/sitemanagerlogin" element={<SiteManagerLogin/>} />
-        <Route exact path="/sitemanager" element={<SiteManager/>} />
-        <Route exact path="/storeownerlogin" element={<StoreOwnerLogin/>} />
-        </Routes>
+        <Route exact path="/sitemanagerlogin" element={<SiteManagerLogin />} />
+        <Route exact path="/sitemanager" element={<SiteManager />} />
+        <Route exact path="/storeownerlogin" element={<StoreOwnerLogin />} />
+      </Routes>
 
-        <Routes>
-        <Route path="/storeowner/:name/" element={<StoreOwner />}/>
+      <Routes>
+        <Route path="/storeowner/:name/" element={<StoreOwner />} />
 
-        </Routes>
+      </Routes>
     </Router>
   );
 }
