@@ -14,11 +14,11 @@ function StoreOwner() {
 
 function AddComputerForm(props) {
     const [price, setPrice] = useState();
-    const [memory, setMemory] = useState('');
-    const [storage, setStorage] = useState('');
-    const [processor, setProcessor] = useState('');
-    const [generation, setGeneration] = useState('');
-    const [graphics, setGraphics] = useState('');
+    const [memory, setMemory] = useState("32 GB");
+    const [storage, setStorage] = useState("2 TB");
+    const [processor, setProcessor] = useState("Intel Xeon");
+    const [generation, setGeneration] = useState("13th Gen Intel");
+    const [graphics, setGraphics] = useState("NVIDIA GeForce RTX 4090");
     const storeName = props.name;
 
     return (
