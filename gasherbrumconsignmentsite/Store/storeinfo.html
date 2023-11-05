@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-color: rgb(60, 194, 185);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Owner Dashboard</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+</head>
+
+<body>
+    <header>
+        <h1>Store Owner Dashboard</h1>
+        <p>Welcome, [Owner Name]</p> <!-- Display the owner's name or username here -->
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="storeowner.html">Create a new store / Add a new product </a></li>
+            
+        </ul>
+    </nav>
+    <h1>Store Inventory</h1>
+    <table>
+        <tr>
+            <th>Store Location</th>
+            <th>Quantity of Products</th>
+        </tr>
+        <tr>
+            <td>Worcester</td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>Boston</td>
+            <td>75</td>
+        </tr>
+    </table>
+    <h2> You can adjust the price</h2>
+    <table>
+        <tr>
+            <th>Store Name</th>
+            <th>Computer/Product</th>
+            <th>Price</th>
+            <th>Items Sold</th>
+        </tr>
+        <tr>
+            <td>Worcester</td>
+            <td>Laptop Model A</td>
+            <td><input type="number" value="1000"></td>
+            <td>25</td>
+        </tr>
+        <tr>
+            <td>Worcester</td>
+            <td>Desktop Computer B</td>
+            <td><input type="number" value="1200"></td>
+            <td>30</td>
+        </tr>
+        <tr>
+            <td>Boston</td>
+            <td>Laptop Model X</td>
+            <td><input type="number" value="1100"></td>
+            <td>20</td>
+        </tr>
+        <!-- Add more rows for additional stores, products, and their data -->
+    </table>
+
+    <section class="store-list">
+        <h2>Your Stores</h2>
+        <!-- Display a list of the owner's stores here -->
+        <!-- Include the option to remove each store -->
+    </section>
+
+    <section class="product-list">
+        <h2>Your Products</h2>
+        <!-- Display a list of the owner's products here -->
+        <!-- Include the option to remove each product -->
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Gasherbrum Project Groups</p>
+    </footer>
+</body>
+</html>

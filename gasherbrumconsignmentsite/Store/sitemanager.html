@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gasherbrum  Computer  Store </title>
+    <style>
+        body {
+            background-color: rgb(60, 194, 185);
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        #filter {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        #filter h2 {
+            margin: 0;
+        }
+        #filter label {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .computer-details {
+            display: flex;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .computer-details img {
+            max-width: 100px;
+            margin-right: 10px;
+        }
+        .compare-checkbox {
+            display: flex;
+            align-items: center;
+        }
+		
+		  table {
+            width: 75%;
+            margin: 0 auto;
+            margin-top: 0;
+        }
+        table th[colspan="2"] {
+            background-color: gray;
+            color: white;
+        }
+        th[colspan="2"] h2 {
+            background-color: gray;
+            color: white;
+            margin: 0;
+        }
+		
+    </style>
+<body>
+
+    <header>
+        <h1>Computer Sell Shop</h1>
+        <input type="text" placeholder="Search..." style="width: 50%;">
+    </header>
+	<br>
+	<div id="filter" style="position: absolute; left: 10px; background-color: gray;color: white;">
+	</th>
+            <th colspan="2">Balance <br>for Site Manager:<br> $5,000</th>
+			</div>
+        </tr>
+	
+           
+
+        <table style="width: 75%; margin: 0 auto; margin-top: 0;">
+        <thead>
+		<th colspan="2"  background color ="gray"><h2>Inventory List</h2></th>
+            <tr>
+                <th>Inventory Name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Item 1</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>Item 2</td>
+                <td>15</td>
+            </tr>
+            <!-- Add more rows for your inventory items here -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>25</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+	<br><br> <br>
+
+<table style="width: 75%; margin: 0 auto; margin-top: 0;">
+        <thead>
+            <tr>
+                <th colspan="2"><h2>$$ Balance for Each Store</h2></th>
+            </tr>
+            <tr>
+                <th>Store Name</th>
+                <th>Balance ($$)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Store A</td>
+                <td>$10,000</td>
+            </tr>
+            <tr>
+                <td>Store B</td>
+                <td>$15,000</td>
+            </tr>
+            <!-- Add more store rows here -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total Balance</td>
+                <td id="totalBalance">$25,000</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        // Calculate the total balance
+        var balanceRows = document.querySelectorAll("tbody tr td:nth-child(2)");
+        var totalBalance = 0;
+        balanceRows.forEach(function (row) {
+            var balance = parseFloat(row.textContent.replace('$', '').replace(',', ''));
+            totalBalance += balance;
+        });
+
+        // Update the Total Balance row
+        var totalBalanceCell = document.getElementById("totalBalance");
+        totalBalanceCell.textContent = "$" + totalBalance.toFixed(2);
+    </script>
+
+				<script>
+  // Get all the balance cells in the table
+  const balanceCells = document.querySelectorAll('tbody td:nth-child(2)');
+
+  // Initialize a variable to store the total balance
+  let totalBalance = 0;
+
+  // Iterate through the balance cells and sum up the balances
+  for (let i = 0; i < balanceCells.length; i++) {
+    const balanceText = balanceCells[i].textContent;
+    const balanceValue = parseFloat(balanceText.replace(/\$/g, '').replace(/,/g, ''));
+    totalBalance += balanceValue;
+  }
+
+ 
+</script>
+
+   <br>
+<br>
+   
+
+<table>
+        <thead>
+            <tr>
+                <th colspan="2"><h2>Remove Store</h2></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label for="storeSelect">Select Store to Remove:</label>
+                    <select id="storeSelect">
+                        <option value="Store A">Store A</option>
+                        <option value="Store B">Store B</option>
+                        <!-- Add more store options here -->
+                    </select>
+                </td>
+                <td>
+                    <button id="removeStoreButton">Remove Store</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
+
+
+
+
+    </table>
+
+	  <footer style="text-align: center; background-color: gray; color: white; font-style: italic; margin-top: 250px;">
+    &copy; 2023 Gasherbrum Project Groups
+</footer>
+
+</body>
+</html>

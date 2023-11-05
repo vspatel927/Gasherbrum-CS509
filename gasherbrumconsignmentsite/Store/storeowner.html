@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://storeowner.s3-website.us-east-2.amazonaws.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Gasherbrum's Store</title>
+    <style>
+        body {
+            
+          background-color: rgb(60, 194, 185);
+    
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        #filter {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        #filter h2 {
+            margin: 0;
+        }
+        #filter label {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .computer-details {
+            display: flex;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .computer-details img {
+            max-width: 100px;
+            margin-right: 10px;
+        }
+        .compare-checkbox {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head><body data-new-gr-c-s-check-loaded="14.1134.0" data-gr-ext-installed="">
+
+    <header>
+        <h1>Gasherbrum Computer Store </h1>
+        <input type="text" placeholder="Search..." style="width: 50%;">
+    </header>
+<table style="width: 75%; margin: 0 auto; margin-top: 0;">
+        <tbody><tr>
+            <td>
+ <h1>Create Store</h1>
+
+    <table>
+        <tbody><tr>
+            <td>
+                <form id="storeForm">
+                    <label for="storeName">Store Name:</label>
+                    <input type="text" id="storeName" name="storeName" required=""><br><br>
+
+                    <label for="location">Location:</label>
+                    <select id="location" name="location">
+                        <option value="Worcester">Worcester</option>
+                        <option value="Boston">Boston</option>
+                    </select><br><br>
+
+                    <button type="submit">Create</button>
+                </form>
+            </td>
+        </tr>
+    </tbody></table>
+
+    <script>
+        // Add JavaScript for form submission or processing here.
+        document.getElementById("storeForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent the form from submitting normally.
+            var storeName = document.getElementById("storeName").value;
+            var location = document.getElementById("location").value;
+
+            // Perform actions with storeName and location, such as sending data to a server.
+        });
+    </script>
+	
+	<h1>Add Computer</h1>
+
+    <table>
+        <tbody><tr>
+            <td>
+                <form id="computerForm">
+                    <label for="computerName">Computer Name:</label>
+                    <input type="text" id="computerName" name="computerName" required=""><br><br>
+					
+					<label for="price">Enter price:</label>
+                    <input type="text" id="price" name="price" required=""><br><br>
+
+
+                    <label for="photoUpload">Upload Photo:</label>
+                    <input type="file" id="photoUpload" name="photoUpload" accept="image/*"><br><br>
+
+                    <label for="hardware">Select Hardware Parts:</label>
+                    <select id="hardware" name="hardware" single="">
+                        <option value="RAM">RAM</option>
+                        <option value="HDD">HDD</option>
+                        <option value="Keyboard">Keyboard</option>
+                        <option value="Mouse">Mouse</option>
+                        <!-- Add more hardware options here -->
+                    </select><br><br>
+
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+
+                    <button type="submit">Submit</button>
+					<button type="button" id="removestore">Remove Store</button>
+					<button type="button" id="Generate report">Generate Report</button>
+
+                    <button type="button" id="editStoreButton">Edit Store</button>
+                </form>
+                
+            </td>
+        </tr>
+    </tbody></table>
+
+    <script>
+        // Add JavaScript for form submission or processing here.
+        document.getElementById("computerForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent the form from submitting normally.
+            var computerName = document.getElementById("computerName").value;
+            var photoFile = document.getElementById("photoUpload").files[0];
+            var hardwareParts = Array.from(document.getElementById("hardware").selectedOptions).map(option => option.value);
+            var description = document.getElementById("description").value;
+			
+			// Add JavaScript for form submission or processing here.
+        document.getElementById("removestore").addEventListener("click", function () {
+            // Handle creating a new store here.
+        });
+
+        document.getElementById("editStoreButton").addEventListener("click", function () {
+            // Handle editing an existing store here.
+
+            // You can now handle and process the form data as needed.
+        });
+    </script>
+	
+	
+	
+
+	  <footer style="text-align: center; background-color: gray; color: white; font-style: italic; margin-top: 250px;">
+    � 2023 Gasherbrum Project Groups
+</footer>
+
+
+
+</td></tr></tbody></table></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;limited&quot;,&quot;isActive&quot;:false,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>
