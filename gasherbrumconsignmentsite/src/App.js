@@ -1,24 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import SiteManagerLogin from './components/sitemanager/sitemanagerlogin';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SiteManager from './components/sitemanager/sitemanager';
+import Home from './components/home';
+import StoreOwnerLogin from './components/storeowner/storeownerlogin';
+import StoreOwner from './components/storeowner/storeowner';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/sitemanagerlogin" element={<SiteManagerLogin/>} />
+        <Route exact path="/sitemanager" element={<SiteManager/>} />
+        <Route exact path="/storeownerlogin" element={<StoreOwnerLogin/>} />
+        </Routes>
+
+        <Routes>
+        <Route path="/storeowner/:name/" element={<StoreOwner />}/>
+
+        </Routes>
+    </Router>
   );
 }
 
