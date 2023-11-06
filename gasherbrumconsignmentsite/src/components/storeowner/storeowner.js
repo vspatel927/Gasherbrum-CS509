@@ -1,13 +1,19 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
 function StoreOwner() {
     const { name } = useParams();
+    const [showComponent, setShowComponent] = useState(false);
+
+    const handleClick = () => setShowComponent(!showComponent)
+
     return (
         <div id="storeContainer">
             <h2>Store Name: {name}</h2>
             <AddComputerForm name={name} />
+            <button name="generateStoreInventory" onClick={handleClick}>Generate Inventory</button>
+            {showComponent && <GenerateInventory name={name} />}
         </div>
     );
 }
@@ -81,13 +87,12 @@ function AddComputerForm(props) {
                 <option value="Intel UHD Graphics 770">Intel UHD Graphics 770</option>
             </select><br></br>
 
-            <button onClick={() => AddComputerToDB(price, memory, storage, processor, generation, graphics, storeName)}>Create Store</button>
+            <button onClick={() => AddComputerToDB(price, memory, storage, processor, generation, graphics, storeName)}>Add Computer</button>
         </div>
     );
 }
 
 function AddComputerToDB(price, memory, storage, processor, generation, graphics, storeName) {
-    console.log(generation)
     axios.post('https://kwd8xwdtmh.execute-api.us-east-2.amazonaws.com/addComputer/addComputer', {
         price: price,
         memory: memory,
@@ -98,7 +103,6 @@ function AddComputerToDB(price, memory, storage, processor, generation, graphics
         name: storeName
     })
         .then(function (response) {
-            console.log(response);
             if (response.data.statusCode === 200) {
                 alert('Computer created')
             }
@@ -108,6 +112,52 @@ function AddComputerToDB(price, memory, storage, processor, generation, graphics
         })
         .catch(function (error) {
         });
+}
+
+function GenerateInventory(storeName){
+    const [inventoryList, setInventoryList] = useState([]);
+    useEffect(() => {
+
+    axios.post('https://y5fezofh3e.execute-api.us-east-2.amazonaws.com/getStoreInventory/getStoreInventory', {
+        name: storeName.name
+      })
+      .then(function (response) {
+        console.log(response)
+        setInventoryList(response.data.body)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }, []);
+
+      return (
+        <>
+        <table>
+            <tr>
+                <th>Price</th>
+                <th>Memory</th>
+                <th>Storage</th>
+                <th>Processor</th>
+                <th>Processor Generation</th>
+                <th>Graphics</th>
+            </tr>
+        <tbody>
+          {inventoryList.map((computer) => (
+            <tr key={computer.computer_id}>
+                <td>${computer.price}</td>
+                <td>{computer.memory}</td>
+                <td>{computer.storage}</td>
+                <td>{computer.processor}</td>
+                <td>{computer.processor_gen}</td>
+                <td>{computer.graphics}</td>
+              <td><button name="DeleteComputer">Delete</button></td>
+            </tr>
+          ))}
+          </tbody>
+        </table>
+
+        </>
+      );
 }
 
 export default StoreOwner
