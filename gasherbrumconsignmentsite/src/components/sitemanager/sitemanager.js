@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router';
+
 
 function SiteManager() {
   const [listOfStores, setlistOfStores] = useState([]);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     axios
@@ -24,6 +28,7 @@ function SiteManager() {
 
       <div id="filter" style={{ position: "absolute", left: "10px", backgroundColor: "gray", color: "white" }}>
         <th colspan="2" class="site-th" >Balance <br />for Site Manager:<br /> $0</th>
+        <button name="logout" onClick={() => navigate('/')}>Logout</button>
       </div>
       <br />
       <InventoryList />

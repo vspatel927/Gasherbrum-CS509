@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 
 function StoreOwner() {
     const { name } = useParams();
+    const navigate = useNavigate();
     const [showComponent, setShowComponent] = useState(false);
 
     const handleClick = () => setShowComponent(!showComponent)
@@ -16,6 +17,7 @@ function StoreOwner() {
             </header>
             <div style={{ float: 'right' }}>
                 <h4>Balance: $0</h4>
+                <button name="logout" onClick={() => navigate('/')}>Logout</button>
             </div>
             <table style={{ width: '75%', margin: '0 auto', marginTop: '0', borderCollapse: 'collapse', border: '1px sold #ccc' }}>
                 <tbody><tr>
