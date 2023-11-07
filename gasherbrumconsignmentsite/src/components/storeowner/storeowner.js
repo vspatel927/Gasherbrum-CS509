@@ -9,11 +9,25 @@ function StoreOwner() {
     const handleClick = () => setShowComponent(!showComponent)
 
     return (
-        <div id="storeContainer">
-            <h2>Store Name: {name}</h2>
+        <div class="container">
+            <header class="header">
+                <h1>{name} Computer Store </h1>
+                <input type="text" placeholder="Search..."  style={{ width: '50%' }} />
+            </header>
+            <div style={{float: 'right'}}>
+                <h4>Balance: $0</h4>
+            </div>
+            <table style={{ width: '75%', margin: '0 auto', marginTop: '0', borderCollapse: 'collapse', border: '1px sold #ccc' }}>
+        <tbody><tr>
+            <td class="site-td"> 
             <AddComputerForm name={name} />
+            
             <button name="generateStoreInventory" onClick={handleClick}>Generate Inventory</button>
             {showComponent && <GenerateInventory name={name} />}
+            </td></tr></tbody></table>
+            <footer class="footer">
+    � 2023 Gasherbrum Project Groups
+</footer>
         </div>
     );
 }
@@ -29,9 +43,11 @@ function AddComputerForm(props) {
 
     return (
         <div className='addComputerForm'>
-            <h2>Add Computer</h2>
-
-            <label for="price">Price:</label>
+            <h1>Add Computer</h1>
+            <table>
+        <tbody><tr>
+            <td class="site-td">
+            <label for="price">Enter Price:</label>
             <input
                 type="number"
                 placeholder="Price"
@@ -88,6 +104,7 @@ function AddComputerForm(props) {
             </select><br></br>
 
             <button onClick={() => AddComputerToDB(price, memory, storage, processor, generation, graphics, storeName)}>Add Computer</button>
+            </td></tr></tbody></table>
         </div>
     );
 }
@@ -103,6 +120,8 @@ function AddComputerToDB(price, memory, storage, processor, generation, graphics
         name: storeName
     })
         .then(function (response) {
+            console.log(response)
+
             if (response.data.statusCode === 200) {
                 alert('Computer created')
             }
@@ -114,50 +133,50 @@ function AddComputerToDB(price, memory, storage, processor, generation, graphics
         });
 }
 
-function GenerateInventory(storeName){
+function GenerateInventory(storeName) {
     const [inventoryList, setInventoryList] = useState([]);
     useEffect(() => {
 
-    axios.post('https://y5fezofh3e.execute-api.us-east-2.amazonaws.com/getStoreInventory/getStoreInventory', {
-        name: storeName.name
-      })
-      .then(function (response) {
-        console.log(response)
-        setInventoryList(response.data.body)
-      })
-      .catch(error => {
-        console.log(error);
-      });
+        axios.post('https://y5fezofh3e.execute-api.us-east-2.amazonaws.com/getStoreInventory/getStoreInventory', {
+            name: storeName.name
+        })
+            .then(function (response) {
+                console.log(response)
+                setInventoryList(response.data.body)
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }, []);
 
-      return (
+    return (
         <>
-        <table>
-            <tr>
-                <th>Price</th>
-                <th>Memory</th>
-                <th>Storage</th>
-                <th>Processor</th>
-                <th>Processor Generation</th>
-                <th>Graphics</th>
-            </tr>
-        <tbody>
-          {inventoryList.map((computer) => (
-            <tr key={computer.computer_id}>
-                <td>${computer.price}</td>
-                <td>{computer.memory}</td>
-                <td>{computer.storage}</td>
-                <td>{computer.processor}</td>
-                <td>{computer.processor_gen}</td>
-                <td>{computer.graphics}</td>
-              <td><button name="DeleteComputer">Delete</button></td>
-            </tr>
-          ))}
-          </tbody>
-        </table>
+            <table>
+                <tr>
+                    <th>Price</th>
+                    <th>Memory</th>
+                    <th>Storage</th>
+                    <th>Processor</th>
+                    <th>Processor Generation</th>
+                    <th>Graphics</th>
+                </tr>
+                <tbody>
+                    {inventoryList.map((computer) => (
+                        <tr key={computer.computer_id}>
+                            <td>${computer.price}</td>
+                            <td>{computer.memory}</td>
+                            <td>{computer.storage}</td>
+                            <td>{computer.processor}</td>
+                            <td>{computer.processor_gen}</td>
+                            <td>{computer.graphics}</td>
+                            <td><button name="DeleteComputer">Delete</button></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
 
         </>
-      );
+    );
 }
 
 export default StoreOwner
