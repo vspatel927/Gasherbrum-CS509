@@ -155,23 +155,26 @@ function GenerateInventory(storeName) {
         <>
             <table>
                 <tr>
-                    <th>Price</th>
-                    <th>Memory</th>
-                    <th>Storage</th>
-                    <th>Processor</th>
-                    <th>Processor Generation</th>
-                    <th>Graphics</th>
+                    <th class = "site-th">Price</th>
+                    <th class = "site-th">Memory</th>
+                    <th class = "site-th">Storage</th>
+                    <th class = "site-th">Processor</th>
+                    <th class = "site-th">Processor Generation</th>
+                    <th class = "site-th">Graphics</th>
+                    <th class = "site-th">Modify Price</th>
+                    <th class = "site-th">Delete</th>
                 </tr>
                 <tbody>
                     {inventoryList.map((computer) => (
                         <tr key={computer.computer_id}>
-                            <td>${computer.price}</td>
-                            <td>{computer.memory}</td>
-                            <td>{computer.storage}</td>
-                            <td>{computer.processor}</td>
-                            <td>{computer.processor_gen}</td>
-                            <td>{computer.graphics}</td>
-                            <td><button name="DeleteComputer">Delete</button></td>
+                            <td class="site-td">${computer.price}</td>
+                            <td class="site-td">{computer.memory}</td>
+                            <td class="site-td">{computer.storage}</td>
+                            <td class="site-td">{computer.processor}</td>
+                            <td class="site-td">{computer.processor_gen}</td>
+                            <td class="site-td">{computer.graphics}</td>
+                            <td class="site-td"><button name="modifyPrice">Modify Price</button></td>
+                            <td class="site-td"><button name="DeleteComputer">Delete</button></td>
                         </tr>
                     ))}
                 </tbody>

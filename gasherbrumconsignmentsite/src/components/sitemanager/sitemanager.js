@@ -31,7 +31,7 @@ function SiteManager() {
         <button name="logout" onClick={() => navigate('/')}>Logout</button>
       </div>
       <br />
-      <InventoryList />
+      <BalanceList />
       <table style={{ width: "75%", margin: "0 auto", marginTop: "0" }}>
         <thead>
           <tr>
@@ -53,7 +53,7 @@ function SiteManager() {
         </tbody>
         <tfoot>
           <tr>
-            <td>Total Balance</td>
+            <td>Total Inventory</td>
             <GetTotalInventory />
           </tr>
         </tfoot>
@@ -101,31 +101,31 @@ function GetTotalInventory() {
   return <td id="totalBalance">${sum}</td>
 }
 
-function InventoryList() {
+function BalanceList() {
   return (
     <div>
       <table style={{ width: "75%", margin: "0 auto", marginTop: "0", borderCollapse: 'collapse', border: '1px sold #ccc' }}>
         <thead>
-          <th colspan="2" class="site-th" background color="gray"><h2>Inventory List</h2></th>
+          <th colspan="2" class="site-th" background color="gray"><h2>Balance List</h2></th>
           <tr>
-            <th class="site-th">Inventory Name</th>
-            <th class="site-th">Quantity</th>
+            <th class="site-th">Store Name</th>
+            <th class="site-th">Balance</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="site-td">Item 1</td>
-            <td class="site-td">10</td>
+            <td class="site-td">Store 1</td>
+            <td class="site-td">$5</td>
           </tr>
           <tr>
-            <td class="site-td">Item 2</td>
-            <td class="site-td">15</td>
+            <td class="site-td">Store 2</td>
+            <td class="site-td">$15</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
-            <td><strong>Total</strong></td>
-            <td><strong>25</strong></td>
+            <td><strong>Total Balance</strong></td>
+            <td><strong>$20</strong></td>
           </tr>
         </tfoot>
       </table>
