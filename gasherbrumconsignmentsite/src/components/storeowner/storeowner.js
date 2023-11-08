@@ -122,7 +122,6 @@ function AddComputerToDB(price, memory, storage, processor, generation, graphics
         name: storeName
     })
         .then(function (response) {
-            console.log(response)
 
             if (response.data.statusCode === 200) {
                 alert('Computer created')

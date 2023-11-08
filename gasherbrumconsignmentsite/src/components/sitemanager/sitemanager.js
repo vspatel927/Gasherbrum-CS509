@@ -90,13 +90,11 @@ function GetTotalInventory() {
   axios
     .get('https://kbeu5tdzv3.execute-api.us-east-2.amazonaws.com/getTotalInventory/getTotalInventory')
     .then((response) => {
-      console.log(response)
       setSum(response.data.body[0].inventorySum)
     })
     .catch(error => {
       console.log(error);
     });
-  console.log(sum)
 
   return <td id="totalBalance">${sum}</td>
 }
