@@ -4,7 +4,7 @@ import './style.css';
 function Home() {
   const  navigate= useNavigate();
   return (
-    <div>
+    <div style= {{ backgroundColor: 'rgb(60, 194, 185)'}} >
       <header>
         <h1>Gasherbrum Computer Store</h1>
         <input type="text" placeholder="Search..." style={{ width: '50%' }} />
