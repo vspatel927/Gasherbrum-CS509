@@ -34,16 +34,43 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-#StoreOwnerContainer{
-  display:flex; 
-  flex-direction:row;
-  padding-left: 10px;
+.container {
+  background-color: rgb(60, 194, 185);
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
-#storeCreation{
-  padding-left: 10%;
+
+.header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.footer {
+  text-align: center;
+  background-color: gray;
+  color: white;
+  font-style: italic;
+  margin-top: 250px;
+}
+
+.site-th,
+.site-td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.site-th[colspan="2"]{
+  background-color: gray;
+  color: white;
+  margin: 0;
 }

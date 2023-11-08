@@ -14,7 +14,6 @@ function StoreOwnerLogin() {
       password: password,
     })
       .then(function (response) {
-        console.log(response);
         if (response.data.statusCode === 200) {
           navigate(`/storeowner/${username}`, { state: { name: username } });
         }
@@ -101,7 +100,6 @@ function handleCreation(storeName, storePassword, storeLatitude, storeLongtitude
     longitude: storeLongtitude
   })
     .then(function (response) {
-      console.log(response);
       if (response.data.statusCode === 200) {
         alert('Created store. Login now')
       }
