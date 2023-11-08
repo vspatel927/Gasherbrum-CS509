@@ -69,6 +69,7 @@ function AddComputerForm(props) {
 
                         <label for="storage">Storage Size:</label>
                         <select value={storage} onChange={(e) => setStorage(e.target.value)}>
+                            <option value="4 TB">4 TB</option>
                             <option value="2 TB">2 TB</option>
                             <option value="1 TB">1 TB</option>
                             <option value="512 GB">512 GB</option>
