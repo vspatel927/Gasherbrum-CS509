@@ -90,7 +90,7 @@ function GetTotalInventory() {
   axios
     .get('https://kbeu5tdzv3.execute-api.us-east-2.amazonaws.com/getTotalInventory/getTotalInventory')
     .then((response) => {
-      setSum(response.data.body[0].inventorySum)
+      setSum(response.data.body.inventorySum)
     })
     .catch(error => {
       console.log(error);
