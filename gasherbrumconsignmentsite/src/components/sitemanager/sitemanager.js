@@ -1,22 +1,25 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router';
+import { useNavigate } from 'react-router';
 
 
 function SiteManager() {
   const [listOfStores, setlistOfStores] = useState([]);
+  const [sortMethod, setSortMethod] = useState('ASC')
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get('https://f96at78893.execute-api.us-east-2.amazonaws.com/getStores/getStores')
+      .post('https://fplee1e5x4.execute-api.us-east-2.amazonaws.com/siteDetails/siteDetails', {
+        sort: sortMethod
+      })
       .then((response) => {
         setlistOfStores(response.data.body)
       })
       .catch(error => {
         console.log(error);
       });
-  }, [])
+  }, [sortMethod])
 
   return (
     <div class="container">
@@ -61,6 +64,12 @@ function SiteManager() {
           <thead>
             <tr>
               <th colspan="2" class="site-th"><h2>Store Information on Site</h2></th>
+              <th colspan="4" style={{ float: 'right' }} > Sort:
+                <select value={sortMethod} onChange={(e) => setSortMethod(e.target.value)}>
+                  <option value="ASC">Ascending</option>
+                  <option value="DESC">Descending</option>
+                </select>
+              </th>
             </tr>
             <tr>
               <th class="site-th">Store Name</th>
