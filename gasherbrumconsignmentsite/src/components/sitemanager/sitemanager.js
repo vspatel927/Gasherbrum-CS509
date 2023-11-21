@@ -29,7 +29,7 @@ function SiteManager() {
       </header>
 
       <div id="filter" style={{ position: "absolute", left: "10px", backgroundColor: "gray", color: "white" }}>
-        <th colspan="2" class="site-th" >Balance <br />for Site Manager:<br /> $0</th>
+        <GetSiteBalance />
         <button name="logout" onClick={() => navigate('/')}>Logout</button>
       </div>
       <br />
@@ -116,4 +116,19 @@ function GetTotalInventory() {
   return <td id="totalBalance">${sum}</td>
 }
 
+function GetSiteBalance() {
+
+  const [balance, setBalance] = useState(0);
+
+  axios
+    .get('https://4ec5jk8503.execute-api.us-east-2.amazonaws.com/getTotalBalance/getTotalBalance')
+    .then((response) => {
+      setBalance(response.data.body.siteBalance)
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
+  return <th colspan="2" class="site-th" >Balance <br />for Site Manager:<br /> ${balance}</th>
+}
 export default SiteManager
