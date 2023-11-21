@@ -1,141 +1,313 @@
-import React from 'react';
 import { useNavigate } from "react-router"
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import './style.css';
 function Home() {
-  const  navigate= useNavigate();
+  const navigate = useNavigate();
+  const [listOfStores, setlistOfStores] = useState([]);
+  const [showInventory, setShowInventory] = useState(false);
+  const [selectedStore, setSelectedStore] = useState('Boston')
+
+
+  const handleInventory = () => setShowInventory(!showInventory)
+
+  useEffect(() => {
+    axios
+      .get('https://f96at78893.execute-api.us-east-2.amazonaws.com/getStores/getStores')
+      .then((response) => {
+        setlistOfStores(response.data.body)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [])
+
   return (
-    <div style= {{ backgroundColor: 'rgb(60, 194, 185)'}} >
+    <div style={{ backgroundColor: 'rgb(60, 194, 185)' }} >
+      <Header />
+      {showInventory && <GenerateInventory />}
+      <StoreList />
+      <br />
+      <br />
+      <StoreInventory />
+      <PriceFilter />
+      <MemoryFilter />
+      <StorageFilter />
+      <ProcessorFilter />
+      <ProcessorGenerationFilter />
+      <GraphicsFilter />
+      <br />
+      <br />
+      {/* <Footer /> */}
+    </div>
+  );
+
+  function Header() {
+    return (
       <header>
         <h1>Gasherbrum Computer Store</h1>
         <input type="text" placeholder="Search..." style={{ width: '50%' }} />
         <nav>
           <ul className="nav-links">
-          <a href="" onClick={() => navigate('/sitemanagerlogin')}>Site Manager Login</a><br></br>
-        <a href="" onClick={() => navigate('/storeownerlogin')}>Store Owner Login</a>
+            <a href="" onClick={() => navigate('/sitemanagerlogin')}>Site Manager Login</a><br></br>
+            <a href="" onClick={() => navigate('/storeownerlogin')}>Store Owner Login</a>
           </ul>
         </nav>
       </header>
+    )
+  }
 
-      <div id="filter" style={{ position: 'absolute', left: '10px', backgroundColor: 'gray', color: 'white' }}>
-        <h2>Filter:</h2>
-        <label htmlFor="cpuCheckbox">
-          <input type="checkbox" id="cpuCheckbox" /> CPU
+  function PriceFilter() {
+    return (
+      <div id="filter" style={{width: '150px', left: '10px', backgroundColor: 'gray', color: 'white' }}>
+        <h2>Price:</h2>
+        <label htmlFor="2001">
+          <input type="checkbox" id="cpuCheckbox" /> $2,001 or More
         </label>
-        <label htmlFor="ramCheckbox">
-          <input type="checkbox" id="ramCheckbox" /> RAM
+        <br />
+        <label htmlFor="1501">
+          <input type="checkbox" id="ramCheckbox" /> $1,501 - $2,000
         </label>
-        <label htmlFor="modelCheckbox">
-          <input type="checkbox" id="modelCheckbox" /> Model
+        <br />
+        <label htmlFor="1001">
+          <input type="checkbox" id="modelCheckbox" /> $1,001 - $1,500
         </label>
+        <br />
+        <label htmlFor="501">
+          <input type="checkbox" id="modelCheckbox" /> $501 - $1,000
+        </label>
+        <br />
+        <label htmlFor="500">
+          <input type="checkbox" id="modelCheckbox" /> $500 or less
+        </label>
+        <br />
         <div style={{ textAlign: 'left' }}>
-          <button id="searchButton">Search</button>
+          <button id="searchButton">Filter</button>
         </div>
       </div>
-      <br />
-      <br />
+    )
+  }
 
-      <div id="filter" style={{ position: 'absolute', left: '10px', backgroundColor: 'gray', marginTop: '120px', color: 'white' }}>
+  function MemoryFilter(){
+    return (
+      <div id="filter" style={{width: '150px', left: '10px', backgroundColor: 'gray', color: 'white' }}>
+        <h2>Memory (RAM):</h2>
+        <label htmlFor="32">
+          <input type="checkbox" id="cpuCheckbox" /> 32 GB or More
+        </label>
+        <br />
+        <label htmlFor="16">
+          <input type="checkbox" id="ramCheckbox" /> 16 GB
+        </label>
+        <br />
+        <label htmlFor="8">
+          <input type="checkbox" id="modelCheckbox" /> 8 GB
+        </label>
+        <br />
+        <label htmlFor="4">
+          <input type="checkbox" id="modelCheckbox" /> 4 GB or Less
+        </label>
+        <br />
+        <div style={{ textAlign: 'left' }}>
+          <button id="searchButton">Filter</button>
+        </div>
+      </div>
+    )
+  }
+
+  function StorageFilter(){
+    return (
+      <div id="filter" style={{width: '150px', left: '10px', backgroundColor: 'gray', color: 'white' }}>
+        <h2>Storage Size:</h2>
+        <label htmlFor="2TB">
+          <input type="checkbox" id="cpuCheckbox" /> 2 TB or More
+        </label>
+        <br />
+        <label htmlFor="1TB">
+          <input type="checkbox" id="ramCheckbox" /> 1 TB
+        </label>
+        <br />
+        <label htmlFor="512">
+          <input type="checkbox" id="modelCheckbox" /> 512 GB
+        </label>
+        <br />
+        <label htmlFor="256">
+          <input type="checkbox" id="modelCheckbox" /> 256 GB or Less
+        </label>
+        <br />
+        <div style={{ textAlign: 'left' }}>
+          <button id="searchButton">Filter</button>
+        </div>
+      </div>
+    )
+  }
+
+  function ProcessorFilter(){
+    return (
+      <div id="filter" style={{width: '150px', left: '10px', backgroundColor: 'gray', color: 'white' }}>
+        <h2>Processor:</h2>
+        <label htmlFor="Intel">
+          <input type="checkbox" id="cpuCheckbox" /> All Intel Processors
+        </label>
+        <br />
+        <label htmlFor="AMD">
+          <input type="checkbox" id="ramCheckbox" /> All AMD Processors
+        </label>
+        <br />
+        <div style={{ textAlign: 'left' }}>
+          <button id="searchButton">Filter</button>
+        </div>
+      </div>
+    )
+  }
+
+  function ProcessorGenerationFilter(){
+    return (
+      <div id="filter" style={{width: '150px', left: '10px', backgroundColor: 'gray', color: 'white' }}>
+      <h2>Processor Generation:</h2>
+      <label htmlFor="13th Gen Intel">
+        <input type="checkbox" id="cpuCheckbox" /> 13th Gen Intel
+      </label>
+      <br />
+      <label htmlFor="12th Gen Intel">
+        <input type="checkbox" id="ramCheckbox" /> 12th Gen Intel
+      </label>
+      <br />
+      <label htmlFor="11th Gen Intel">
+        <input type="checkbox" id="modelCheckbox" /> 11th Gen Intel
+      </label>
+      <br />
+      <label htmlFor="AMD Ryzen 7000 Series">
+        <input type="checkbox" id="modelCheckbox" /> AMD Ryzen 7000 Series
+      </label>
+      <br />
+      <label htmlFor="AMD Ryzen 6000 Series">
+        <input type="checkbox" id="modelCheckbox" /> AMD Ryzen 6000 Series
+      </label>
+      <br />
+      <div style={{ textAlign: 'left' }}>
+        <button id="searchButton">Filter</button>
+      </div>
+    </div>
+    )
+  }
+
+  function GraphicsFilter(){
+    return (
+      <div id="filter" style={{width: '150px', left: '10px', backgroundColor: 'gray', color: 'white' }}>
+        <h2>Graphics:</h2>
+        <label htmlFor="Nvidia">
+          <input type="checkbox" id="cpuCheckbox" /> All Nvidia Graphics
+        </label>
+        <br />
+        <label htmlFor="AMD">
+          <input type="checkbox" id="ramCheckbox" /> All AMD Graphics
+        </label>
+        <br />
+        <label htmlFor="Intel">
+          <input type="checkbox" id="modelCheckbox" /> All Intel Graphics
+        </label>
+        <br />
+        <div style={{ textAlign: 'left' }}>
+          <button id="searchButton">Filter</button>
+        </div>
+      </div>
+    )
+  }
+
+  function StoreList() {
+    return (
+      <div id="filter" style={{width: '150px', left: '10px', backgroundColor: 'gray', color: 'white' }}>
         <h2>Shops:</h2>
-        <label htmlFor="modelCheckbox">
-          <input type="checkbox" id="modelCheckbox" /> Shop 1
-        </label>
-        <label htmlFor="modelCheckbox">
-          <input type="checkbox" id="modelCheckbox" /> Shop 2
-        </label>
-        <label htmlFor="modelCheckbox">
-          <input type="checkbox" id="modelCheckbox" /> Shop 3
-        </label>
-        <label htmlFor="modelCheckbox">
-          <input type="checkbox" id="modelCheckbox" /> Shop 4
-        </label>
+        {listOfStores.map((store) => (
+          <label htmlFor="modelCheckbox">
+            <input type="checkbox" id="modelCheckbox" key={store.name} /> {store.name}
+          </label>
+        ))}
         <div style={{ textAlign: 'left' }}>
           <button id="searchButton">Search</button>
         </div>
       </div>
-      <br />
-      <br />
+    )
+  }
 
-      <div id="filter" style={{ position: 'absolute', left: '10px', backgroundColor: 'gray', marginTop: '250px', color: 'white' }}>
+  function StoreInventory() {
+
+    return (
+      <div id="filter" style={{width: '150px', left: '10px', backgroundColor: 'gray', color: 'white' }}>
         <h2>Inventory:</h2>
         <label htmlFor="allStores">Choose Store:</label>
-        <select id="allStores" style={{ color: 'black' }}>
-          <option value="store1">Store 1</option>
-          <option value="store2">Store 2</option>
-          <option value="store3">Store 3</option>
-          {/* Add more options for additional stores */}
+        <select value={selectedStore} onChange={(e) => setSelectedStore(e.target.value)} style={{ color: 'black' }}>
+          {listOfStores.map((store) => (
+            <option value={store.name} key={store.name}>{store.name}</option>
+          ))}
         </select>
+        <br />
         <label htmlFor="shopList">All Stores:</label>
-        <select id="shopList" multiple style={{ color: 'black' }}>
-          <option value="shop1">Shop 1</option>
-          <option value="shop2">Shop 2</option>
-          <option value="shop3">Shop 3</option>
-          <option value="shop4">Shop 4</option>
-          {/* Add more options for additional shops */}
-        </select>
+
         <div style={{ textAlign: 'left' }}>
-          <button id="searchButton" style={{ color: 'black' }}>Search</button>
+          <button id="searchButton" style={{ color: 'black' }} onClick={handleInventory}>Search</button>
         </div>
       </div>
+    )
+  }
 
-      <table style={{ width: '55%', margin: '0 auto', marginTop: '0' }}>
-        <thead>
+  function GenerateInventory() {
+    const [inventoryList, setInventoryList] = useState([])
+
+    useEffect(() => {
+      axios.post('https://y5fezofh3e.execute-api.us-east-2.amazonaws.com/getStoreInventory/getStoreInventory', {
+        name: selectedStore
+      })
+        .then(function (response) {
+          console.log(response)
+          setInventoryList(response.data.body)
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }, []);
+
+    return (
+      <>
+        <table style={{ width: '55%', margin: '0 auto', marginTop: '0' }}>
           <tr>
-            <th>Price</th>
-            <th>Computer Details</th>
+            <th class="site-th">Price</th>
+            <th class="site-th">Memory</th>
+            <th class="site-th">Storage</th>
+            <th class="site-th">Processor</th>
+            <th class="site-th">Processor Generation</th>
+            <th class="site-th">Graphics</th>
+            <th class="site-th">Purchase</th>
+            <th class="site-th">Compare</th>
           </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>$999</td>
-            <td>
-              <div className="computer-details">
-                {/* <img src="s3://customersphostos/image/computer.jpg" alt="computer Image" /> */}
-                <img src="https://customersphostos.s3.us-east-2.amazonaws.com/image/computer.jpg" alt="Computer Image" />
-                <p>HP - 21.5" All-In-One - Intel Celeron - 4GB Memory - 128GB SSD - Snow White</p>
-              </div>
-              <div className="compare-checkbox">
-                <input type="checkbox" />
-                <label htmlFor="compareCheckbox">Compare</label>
-              </div>
-            </td>
-            <td><button>Purchase</button></td>
-          </tr>
-          <tr>
-            <td>$90</td>
-            <td>
-              <div className="computer-details1">
-                <img src="https://customersphostos.s3.us-east-2.amazonaws.com/image/computer1.jpg" height="70" alt="Computer Image" />
-                <p>HP - 21.5" All-In-One - Intel Celeron - 4GB Memory - 128GB SSD - Snow White</p>
-              </div>
-              <div className="compare-checkbox">
-                <input type="checkbox" />
-                <label htmlFor="compareCheckbox">Compare</label>
-              </div>
-            </td>
-            <td><button>Purchase</button></td>
-          </tr>
-          <tr>
-            <td>$19</td>
-            <td>
-              <div className="computer-details">
-                <img src="https://customersphostos.s3.us-east-2.amazonaws.com/image/computer2.jpg" height="50" alt="Keyboard" />
-                <p>Logitech - MK470 Full-size Wireless Scissor Keyboard and Mouse Bundle for Windows with Quiet clicks - Off-White</p>
-              </div>
-              <div className="compare-checkbox">
-                <input type="checkbox" />
-                <label htmlFor="compareCheckbox">Compare</label>
-              </div>
-            </td>
-            <td><button>Purchase</button></td>
-          </tr>
-          {/* Add more computer entries as needed */}
-        </tbody>
-      </table>
+          <tbody>
+            {inventoryList.map((computer) => (
+              <tr key={computer.computer_id}>
+                <td class="site-td">${computer.price}</td>
+                <td class="site-td">{computer.memory}</td>
+                <td class="site-td">{computer.storage}</td>
+                <td class="site-td">{computer.processor}</td>
+                <td class="site-td">{computer.processor_gen}</td>
+                <td class="site-td">{computer.graphics}</td>
+                <td class="site-td"><button name="purchase">Purchase</button></td>
+                <input type="checkbox" /> </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
+    );
+  }
+
+  function Footer() {
+    return (
+      <div style={{position: 'absolute', bottom: '0', width: '100%'}}>
       <footer style={{ textAlign: 'center', backgroundColor: 'gray', color: 'white', fontStyle: 'italic', marginTop: '250px' }}>
         &copy; 2023 Gasherbrum Project Groups
       </footer>
-    </div>
-  );
+      </div>
+    )
+  }
 }
 
 export default Home;

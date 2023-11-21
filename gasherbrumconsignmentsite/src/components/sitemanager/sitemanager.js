@@ -1,23 +1,25 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router';
+import { useNavigate } from 'react-router';
 
 
 function SiteManager() {
   const [listOfStores, setlistOfStores] = useState([]);
+  const [sortMethod, setSortMethod] = useState('ASC')
   const navigate = useNavigate();
-
 
   useEffect(() => {
     axios
-      .get('https://f96at78893.execute-api.us-east-2.amazonaws.com/getStores/getStores')
+      .post('https://fplee1e5x4.execute-api.us-east-2.amazonaws.com/siteDetails/siteDetails', {
+        sort: sortMethod
+      })
       .then((response) => {
         setlistOfStores(response.data.body)
       })
       .catch(error => {
         console.log(error);
       });
-  }, [])
+  }, [sortMethod])
 
   return (
     <div class="container">
@@ -27,37 +29,11 @@ function SiteManager() {
       </header>
 
       <div id="filter" style={{ position: "absolute", left: "10px", backgroundColor: "gray", color: "white" }}>
-        <th colspan="2" class="site-th" >Balance <br />for Site Manager:<br /> $0</th>
+        <GetSiteBalance />
         <button name="logout" onClick={() => navigate('/')}>Logout</button>
       </div>
       <br />
-      <BalanceList />
-      <table style={{ width: "75%", margin: "0 auto", marginTop: "0" }}>
-        <thead>
-          <tr>
-            <th colspan="2" class="site-th"><h2>$$ Inventory for Each Store</h2></th>
-          </tr>
-          <tr>
-            <th class="site-th">Store Name</th>
-            <th class="site-th">Inventory Amount ($$)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listOfStores.map((store) => (
-            <tr key={store.name}>
-              <td class="site-td">{store.name}</td>
-              <td class="site-td">${store.inventory}</td>
-              <button name="Delete" onClick={() => deleteStore(store.name)}>Delete</button>
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td>Total Inventory</td>
-            <GetTotalInventory />
-          </tr>
-        </tfoot>
-      </table>
+      <StoreTable />
       <footer class="footer">
         &copy; 2023 Gasherbrum Project Groups
       </footer>
@@ -81,6 +57,47 @@ function SiteManager() {
       });
   }
 
+  function StoreTable() {
+    return (
+      <div>
+        <table style={{ width: "75%", margin: "0 auto", marginTop: "0", borderCollapse: 'collapse', border: '1px solid #ccc' }}>
+          <thead>
+            <tr>
+              <th colspan="2" class="site-th"><h2>Store Information on Site</h2></th>
+              <th colspan="4" style={{ float: 'right' }} > Sort:
+                <select value={sortMethod} onChange={(e) => setSortMethod(e.target.value)}>
+                  <option value="ASC">Ascending</option>
+                  <option value="DESC">Descending</option>
+                </select>
+              </th>
+            </tr>
+            <tr>
+              <th class="site-th">Store Name</th>
+              <th class="site-th">$$ Balance</th>
+              <th class="site-th">Inventory Amount ($$)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listOfStores.map((store) => (
+              <tr key={store.name}>
+                <td class="site-td">{store.name}</td>
+                <td class="site-td">${store.storeBal}</td>
+                <td class="site-td">${store.inventory}</td>
+                <button name="Delete" onClick={() => deleteStore(store.name)}>Delete</button>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Total Inventory</td>
+              <GetTotalInventory />
+            </tr>
+          </tfoot>
+        </table>
+        <br /><br /> <br />
+      </div>
+    );
+  }
 }
 
 function GetTotalInventory() {
@@ -90,7 +107,7 @@ function GetTotalInventory() {
   axios
     .get('https://kbeu5tdzv3.execute-api.us-east-2.amazonaws.com/getTotalInventory/getTotalInventory')
     .then((response) => {
-      setSum(response.data.body[0].inventorySum)
+      setSum(response.data.body.inventorySum)
     })
     .catch(error => {
       console.log(error);
@@ -99,38 +116,19 @@ function GetTotalInventory() {
   return <td id="totalBalance">${sum}</td>
 }
 
-function BalanceList() {
-  return (
-    <div>
-      <table style={{ width: "75%", margin: "0 auto", marginTop: "0", borderCollapse: 'collapse', border: '1px sold #ccc' }}>
-        <thead>
-          <th colspan="2" class="site-th" background color="gray"><h2>Balance List</h2></th>
-          <tr>
-            <th class="site-th">Store Name</th>
-            <th class="site-th">Balance</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="site-td">Store 1</td>
-            <td class="site-td">$5</td>
-          </tr>
-          <tr>
-            <td class="site-td">Store 2</td>
-            <td class="site-td">$15</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td><strong>Total Balance</strong></td>
-            <td><strong>$20</strong></td>
-          </tr>
-        </tfoot>
-      </table>
-      <br /><br /> <br />
-    </div>
-  );
+function GetSiteBalance() {
+
+  const [balance, setBalance] = useState(0);
+
+  axios
+    .get('https://4ec5jk8503.execute-api.us-east-2.amazonaws.com/getTotalBalance/getTotalBalance')
+    .then((response) => {
+      setBalance(response.data.body.siteBalance)
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
+  return <th colspan="2" class="site-th" >Balance <br />for Site Manager:<br /> ${balance}</th>
 }
-
-
 export default SiteManager
