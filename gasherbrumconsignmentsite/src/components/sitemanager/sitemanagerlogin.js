@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 function SiteManagerLogin() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');

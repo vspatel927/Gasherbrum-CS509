@@ -6,6 +6,7 @@ function StoreOwner() {
     const { name } = useParams();
     const navigate = useNavigate();
     const [showComponent, setShowComponent] = useState(false);
+    
 
     const handleClick = () => setShowComponent(!showComponent)
 
@@ -32,7 +33,7 @@ function StoreOwner() {
             </footer>
         </div>
     );
-}
+
 
 function AddComputerForm(props) {
     const [price, setPrice] = useState();
@@ -135,7 +136,8 @@ function AddComputerToDB(price, memory, storage, processor, generation, graphics
         });
 }
 
-function GenerateInventory(storeName) {
+
+  function GenerateInventory(storeName) {
     const [inventoryList, setInventoryList] = useState([]);
     useEffect(() => {
 
@@ -150,6 +152,22 @@ function GenerateInventory(storeName) {
                 console.log(error);
             });
     }, []);
+    function removeComputer(computerId, storeName) {
+        axios.post('https://bsvojtow49.execute-api.us-east-2.amazonaws.com/removeComputer/removeComputer', {
+          id: computerId,
+          store: storeName,
+        })
+          .then(function (response) {
+            if (response.data.statusCode === 200) {
+              const updatedList = inventoryList.filter(obj => obj.computer_id !== computerId);
+              setInventoryList(updatedList);
+              alert('Computer successfully deleted.');
+            }
+          })
+          .catch(function (error) {
+            alert('Computer not deleted. Try again.');
+          });
+      }
 
     return (
         <>
@@ -174,7 +192,7 @@ function GenerateInventory(storeName) {
                             <td class="site-td">{computer.processor_gen}</td>
                             <td class="site-td">{computer.graphics}</td>
                             <td class="site-td"><button name="modifyPrice">Modify Price</button></td>
-                            <td class="site-td"><button name="DeleteComputer">Delete</button></td>
+                            <td class="site-td"><button name="DeleteComputer" onClick={() =>removeComputer (computer.computer_id, storeName.name)}> Delete</button></td>
                         </tr>
                     ))}
                 </tbody>
@@ -182,6 +200,7 @@ function GenerateInventory(storeName) {
 
         </>
     );
+}
 }
 
 export default StoreOwner
