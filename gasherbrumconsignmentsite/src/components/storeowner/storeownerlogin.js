@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
 function StoreOwnerLogin() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
