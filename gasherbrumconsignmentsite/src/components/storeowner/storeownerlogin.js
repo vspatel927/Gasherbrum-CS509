@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { Header, Navbar } from './../header/header';
 
 function StoreOwnerLogin() {
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ function StoreOwnerLogin() {
 
   return (
     <div id="StoreOwnerContainer">
+      <Header/>
 
       <div className="storeLogin">
         <h2>Login to store</h2>
@@ -109,5 +110,19 @@ function handleCreation(storeName, storePassword, storeLatitude, storeLongtitude
       alert('Store not created. Try again')
     });
 }
+function Footer() {
+  return (
+    <div style={{position: 'absolute', bottom: '0', width: '100%'}}>
+    <footer style={{ textAlign: 'center', backgroundColor: 'gray', color: 'white', fontStyle: 'italic', marginTop: '250px' }}>
+      &copy; 2023 Gasherbrum Project Groups
+    </footer>
+    </div>
+  )
+}
 
-export default StoreOwnerLogin
+export {
+  Header,
+  Navbar,
+  
+};
+export default StoreOwnerLogin;

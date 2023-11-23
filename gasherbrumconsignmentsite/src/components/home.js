@@ -2,6 +2,7 @@ import { useNavigate } from "react-router"
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './style.css';
+import { Header, Navbar } from './header/header';
 function Home() {
   const navigate = useNavigate();
   const [listOfStores, setlistOfStores] = useState([]);
@@ -23,8 +24,9 @@ function Home() {
   }, [])
 
   return (
+  
     <div style={{ backgroundColor: 'rgb(60, 194, 185)' }} >
-      <Header />
+      <Header/>
       {showInventory && <GenerateInventory />}
       <StoreList />
       <br />
@@ -42,20 +44,7 @@ function Home() {
     </div>
   );
 
-  function Header() {
-    return (
-      <header>
-        <h1>Gasherbrum Computer Store</h1>
-        <input type="text" placeholder="Search..." style={{ width: '50%' }} />
-        <nav>
-          <ul className="nav-links">
-            <a href="" onClick={() => navigate('/sitemanagerlogin')}>Site Manager Login</a><br></br>
-            <a href="" onClick={() => navigate('/storeownerlogin')}>Store Owner Login</a>
-          </ul>
-        </nav>
-      </header>
-    )
-  }
+  
 
   function PriceFilter() {
     return (
@@ -309,5 +298,11 @@ function Home() {
     )
   }
 }
+export {
+  Header,
+  Navbar,
+ 
+  
+};
 
 export default Home;
