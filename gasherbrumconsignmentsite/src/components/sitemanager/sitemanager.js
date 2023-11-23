@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-
+import { Header, Navbar } from './../header/header';
 
 function SiteManager() {
   const [listOfStores, setlistOfStores] = useState([]);
@@ -131,4 +131,19 @@ function GetSiteBalance() {
 
   return <th colspan="2" class="site-th" >Balance <br />for Site Manager:<br /> ${balance}</th>
 }
-export default SiteManager
+function Footer() {
+  return (
+    <div style={{position: 'absolute', bottom: '0', width: '100%'}}>
+    <footer style={{ textAlign: 'center', backgroundColor: 'gray', color: 'white', fontStyle: 'italic', marginTop: '250px' }}>
+      &copy; 2023 Gasherbrum Project Groups
+    </footer>
+    </div>
+  )
+}
+
+export {
+  Header,
+  Navbar,
+  
+};
+export default SiteManager;

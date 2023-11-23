@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Header, Navbar } from './../header/header';
 function SiteManagerLogin() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -15,7 +16,8 @@ function SiteManagerLogin() {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: 'rgb(60, 194, 185)' }}>
+      <Header />
       <h1>Site Manager Login</h1><br></br>
       <input
         type="text"
@@ -33,5 +35,19 @@ function SiteManagerLogin() {
     </div>
   );
 }
+function Footer() {
+  return (
+    <div style={{position: 'absolute', bottom: '0', width: '100%'}}>
+    <footer style={{ textAlign: 'center', backgroundColor: 'gray', color: 'white', fontStyle: 'italic', marginTop: '250px' }}>
+      &copy; 2023 Gasherbrum Project Groups
+    </footer>
+    </div>
+  )
+}
 
-export default SiteManagerLogin
+export {
+  Header,
+  Navbar,
+  Footer,
+};
+export default SiteManagerLogin ;
