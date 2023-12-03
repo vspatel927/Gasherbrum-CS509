@@ -241,9 +241,9 @@ function Home() {
           {listOfStores.map((store) => (
             <option value={store.name} key={store.name}>{store.name}</option>
           ))}
+           <option value="*">All stores</option>
         </select>
         <br />
-        <label htmlFor="shopList">All Stores:</label>
 
         <div style={{ textAlign: 'left' }}>
           <button id="searchButton" style={{ color: 'black' }} onClick={handleInventory}>Search</button>
