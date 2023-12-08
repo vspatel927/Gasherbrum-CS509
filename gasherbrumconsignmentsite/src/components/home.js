@@ -6,7 +6,7 @@ function Home() {
   const navigate = useNavigate();
   const [listOfStores, setlistOfStores] = useState([]);
   const [showInventory, setShowInventory] = useState(false);
-  const [selectedStore, setSelectedStore] = useState('Boston')
+  const [selectedStore, setSelectedStore] = useState('*')
 
 
   const handleInventory = () => setShowInventory(!showInventory)
@@ -241,9 +241,9 @@ function Home() {
           {listOfStores.map((store) => (
             <option value={store.name} key={store.name}>{store.name}</option>
           ))}
+           <option value="*" key="*">All stores</option>
         </select>
         <br />
-        <label htmlFor="shopList">All Stores:</label>
 
         <div style={{ textAlign: 'left' }}>
           <button id="searchButton" style={{ color: 'black' }} onClick={handleInventory}>Search</button>
