@@ -6,7 +6,7 @@ function Home() {
   const navigate = useNavigate();
   const [listOfStores, setlistOfStores] = useState([]);
   const [showInventory, setShowInventory] = useState(false);
-  const [selectedStore, setSelectedStore] = useState('Boston')
+  const [selectedStore, setSelectedStore] = useState('*')
 
 
   const handleInventory = () => setShowInventory(!showInventory)
@@ -241,7 +241,7 @@ function Home() {
           {listOfStores.map((store) => (
             <option value={store.name} key={store.name}>{store.name}</option>
           ))}
-           <option value="*">All stores</option>
+           <option value="*" key="*">All stores</option>
         </select>
         <br />
 
