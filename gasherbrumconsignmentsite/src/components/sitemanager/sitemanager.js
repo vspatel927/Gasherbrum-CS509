@@ -144,6 +144,7 @@ function Footer() {
 export {
   Header,
   Navbar,
+  Footer,
   
 };
 export default SiteManager;

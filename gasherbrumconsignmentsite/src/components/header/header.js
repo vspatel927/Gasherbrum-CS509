@@ -1,7 +1,11 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router"
+
 import './header.css';
+
+import '../compare';
+
 
 function Header() {
   const navigate = useNavigate();
@@ -39,6 +43,7 @@ function Header() {
                   Store Owner Login
                 </a>
               </li>
+              
             </ul>
           </nav>
 
@@ -53,6 +58,12 @@ function Header() {
         <section className="header-bottom">
           <section className="header-bottom__phone">999-478-5555</section>
           <section className="header-bottom__email">Gasherbrum@gmail.com</section>
+          <Link to="/compare">
+          <button style={{ backgroundColor: 'blue', color: 'white', padding: '10px', borderRadius: '5px' }}>
+              Compare Computers
+             </button>
+      </Link>
+      
         </section>
       </section>
     </header>
@@ -60,21 +71,17 @@ function Header() {
 }
 
 
-function Navbar () {
-
-    return (
+function Navbar() {
+  return (
+    <section className="navbar">
+      <Link to="/" className="navbar-item">Shop</Link>
+      <Link to="/about" className="navbar-item">About</Link>
+      <Link to="/blog" className="navbar-item">Blog</Link>
+      <Link to="/contact" className="navbar-item">Contact</Link>
       
-        <section className="navbar">
-          <a href="/" className="navbar-item">Shop</a>
-          <a href="/about" className="navbar-item">About</a>
-          
-          
-          <a href="/blog" className="navbar-item">Blog</a>
-          <a href="/contact" className="navbar-item">Contact</a>
-      </section>
-    )
-  
-  }
+    </section>
+  );
+}
   
   
 

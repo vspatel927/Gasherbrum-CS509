@@ -3,6 +3,26 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './style.css';
 import { Header, Navbar } from './header/header';
+
+const SlideShow = ({ slides }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const goToNextSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+  };
+
+  const goToPrevSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
+  };
+
+  return (
+    <div style={{ width: "auto"}}>
+      <button onClick={goToPrevSlide}>Previous</button>
+      <img src={slides[currentSlide].url} alt={slides[currentSlide].title} />
+      <button onClick={goToNextSlide}>Next</button>
+    </div>
+  );
+};
 function Home() {
   const navigate = useNavigate();
   const [listOfStores, setlistOfStores] = useState([]);
@@ -11,7 +31,17 @@ function Home() {
 
 
   const handleInventory = () => setShowInventory(!showInventory)
-
+  
+  const slides = [
+    { url:"/images/macc.jpeg", title: "Mac",style: { width: "10%",
+    height: "10%",
+    borderRadius: "10px",
+    backgroundSize: "cover",
+    backgroundPosition: "center",}},
+    { url: "/images/laptop.png", title: "hp" },
+    
+    // Add more slides as needed
+  ];
   useEffect(() => {
     axios
       .get('https://f96at78893.execute-api.us-east-2.amazonaws.com/getStores/getStores')
@@ -27,6 +57,11 @@ function Home() {
   
     <div style={{ backgroundColor: 'rgb(60, 194, 185)' }} >
       <Header/>
+      <h1> Welcome to Gasherbrum where you can find all your computers needs  </h1>
+      <div style={{ width: "auto"}}>
+      
+      <SlideShow slides={slides} />
+    </div>
       {showInventory && <GenerateInventory />}
       <StoreList />
       <br />
@@ -40,7 +75,8 @@ function Home() {
       <GraphicsFilter />
       <br />
       <br />
-      {/* <Footer /> */}
+      
+       <Footer /> 
     </div>
   );
 
@@ -301,8 +337,9 @@ function Home() {
 export {
   Header,
   Navbar,
- 
   
 };
+
+
 
 export default Home;
