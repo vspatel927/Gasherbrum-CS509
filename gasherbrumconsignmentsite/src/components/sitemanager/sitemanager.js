@@ -8,6 +8,8 @@ function SiteManager() {
   const [sortMethod, setSortMethod] = useState('ASC')
   const navigate = useNavigate();
 
+  const [redrawList, setRedrawList] = useState(0)
+
   useEffect(() => {
     axios
       .post('https://fplee1e5x4.execute-api.us-east-2.amazonaws.com/siteDetails/siteDetails', {
@@ -19,7 +21,7 @@ function SiteManager() {
       .catch(error => {
         console.log(error);
       });
-  }, [sortMethod])
+  }, [sortMethod, redrawList])
 
   return (
     <div class="container">
@@ -47,8 +49,7 @@ function SiteManager() {
     })
       .then(function (response) {
         if (response.data.statusCode === 200) {
-          const updatedList = listOfStores.filter(obj => obj.name !== storeName)
-          setlistOfStores(updatedList);
+          setRedrawList(redrawList+1)
           alert('Store successfully deleted.')
         }
       })

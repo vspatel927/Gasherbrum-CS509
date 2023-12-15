@@ -106,6 +106,9 @@ function handleCreation(storeName, storePassword, storeLatitude, storeLongtitude
       if (response.data.statusCode === 200) {
         alert('Created store. Login now')
       }
+      else{
+        alert('Error')
+      }
     })
     .catch(function (error) {
       alert('Store not created. Try again')
