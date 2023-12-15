@@ -6,8 +6,6 @@ function Home() {
   const navigate = useNavigate();
 
   const [listOfStores, setlistOfStores] = useState([]);
-  // const [showInventory, setShowInventory] = useState(false);
-  // const [selectedStore, setSelectedStore] = useState('*')
 
   const [computerList, setComputerList] = useState([])
   const [priceFilter, setPriceFilter] = useState([])
@@ -23,7 +21,8 @@ function Home() {
   const [customerLat, setCustomerLat] = useState(0)
   const [customerLong, setCustomerLong] = useState(0)
 
-  // const handleInventory = () => setShowInventory(!showInventory)
+  const [showCompare, setShowCompare] = useState(false)
+  const [redrawList, setRedrawList] = useState(0)
 
   useEffect(() => {
     axios
@@ -44,27 +43,24 @@ function Home() {
       processor: processorFilter,
       processorGen: processorGenFilter,
       graphics: graphicsFilter,
-      store: storeFilter
+      store: storeFilter,
+      latitude: customerLat,
+      longitude: customerLong
     })
       .then(function (response) {
-        console.log(response)
-        console.log(customerLat)
-        // setComputerList([])
         setComputerList(response.data.body)
       })
       .catch(error => {
         console.log(error);
       });
-  }, [priceFilter, memoryFilter, storageFilter, processorFilter, processorGenFilter, graphicsFilter, storeFilter]);
+  }, [priceFilter, memoryFilter, storageFilter, processorFilter, processorGenFilter, graphicsFilter, storeFilter, customerLat, customerLong, redrawList]);
 
   return (
     <div style={{ backgroundColor: 'rgb(60, 194, 185)', }} >
       <Header />
-      {/* {showInventory && <GenerateInventory />} */}
       <div style={{ display: 'flex', justifyContent: 'start' }}>
         <div class="custContent" style={{ width: '5%' }}>
           <StoreList />
-          {/* <StoreInventory /> */}
           <PriceFilter />
           <MemoryFilter />
           <StorageFilter />
@@ -73,13 +69,15 @@ function Home() {
           <GraphicsFilter />
           <br />
           <br />
-          {/* <Footer /> */}
         </div>
         <div class="custContent" style={{ width: '80%' }}>
-          <GenerateFilteredComputers />
+          {!showCompare && <GenerateFilteredComputers />}
+          {showCompare && <ShowComparedComputers />}
         </div>
         <div class="custLocation" style={{width: '15%'}}>
           <CustomerCoordinates />
+          {compareList.length >= 2 && !showCompare && <button onClick={() => setShowCompare(!showCompare)}>Compare </button>}
+          {showCompare && <button onClick={() => setShowCompare(!showCompare)}>Exit Compare </button>}
         </div>
       </div>
     </div>
@@ -250,27 +248,6 @@ function Home() {
     )
   }
 
-  // function StoreInventory() {
-
-  //   return (
-  //     <div id="filter" style={{width: '150px', left: '10px', backgroundColor: 'gray', color: 'white' }}>
-  //       <h2>Inventory:</h2>
-  //       <label htmlFor="allStores">Choose Store:</label>
-  //       <select value={selectedStore} onChange={(e) => setSelectedStore(e.target.value)} style={{ color: 'black' }}>
-  //         {listOfStores.map((store) => (
-  //           <option value={store.name} key={store.name}>{store.name}</option>
-  //         ))}
-  //          <option value="*" key="*">All stores</option>
-  //       </select>
-  //       <br />
-
-  //       <div style={{ textAlign: 'left' }}>
-  //         <button id="searchButton" style={{ color: 'black' }} onClick={handleInventory}>Search</button>
-  //       </div>
-  //     </div>
-  //   )
-  // }
-
   function handleFilter(filter, category) {
 
     if (category === "price") {
@@ -342,6 +319,7 @@ function Home() {
             <th class="site-th">Processor</th>
             <th class="site-th">Processor Generation</th>
             <th class="site-th">Graphics</th>
+            <th class="site-th">Total Price (w/ Shipping)</th>
             <th class="site-th">Purchase</th>
             <th class="site-th">Compare</th>
           </tr>
@@ -354,8 +332,10 @@ function Home() {
                 <td class="site-td">{computer.processor}</td>
                 <td class="site-td">{computer.processor_gen}</td>
                 <td class="site-td">{computer.graphics}</td>
-                <td class="site-td"><button name="purchase">Purchase</button></td>
-                <td class="site-td"><input type="checkbox" /> </td></tr>
+                <td class="site-td">${computer.totalPrice.toFixed(2)}</td>
+                <td class="site-td"><button name="purchase" onClick={() => PurchaseComputer(computer.computer_id, computer.store_name, computer.totalPrice)}>Purchase</button></td>
+                <td class="site-td"><input type="checkbox" checked = {compareList.includes(computer)} onClick={() => handleCompareComputer(computer)}/></td>
+                </tr>
             ))}
           </tbody>
         </table>
@@ -388,61 +368,70 @@ function Home() {
     )
   }
 
-  // function GenerateInventory() {
-  //   const [inventoryList, setInventoryList] = useState([])
+  function handleCompareComputer(computer){
+      setCompareList((prevCompareComputers) => {
+        const isChecked = prevCompareComputers.includes(computer);
+        return isChecked
+          ? prevCompareComputers.filter((value) => value !== computer)
+          : [...prevCompareComputers, computer];
+      });
+  }
 
-  //   useEffect(() => {
-  //     axios.post('https://y5fezofh3e.execute-api.us-east-2.amazonaws.com/getStoreInventory/getStoreInventory', {
-  //       name: selectedStore
-  //     })
-  //       .then(function (response) {
-  //         console.log(response)
-  //         setInventoryList(response.data.body)
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //   }, []);
-
-  //   return (
-  //     <>
-  //       <table style={{ width: '55%', margin: '0 auto', marginTop: '0' }}>
-  //         <tr>
-  //           <th class="site-th">Price</th>
-  //           <th class="site-th">Memory</th>
-  //           <th class="site-th">Storage</th>
-  //           <th class="site-th">Processor</th>
-  //           <th class="site-th">Processor Generation</th>
-  //           <th class="site-th">Graphics</th>
-  //           <th class="site-th">Purchase</th>
-  //           <th class="site-th">Compare</th>
-  //         </tr>
-  //         <tbody>
-  //           {inventoryList.map((computer) => (
-  //             <tr key={computer.computer_id}>
-  //               <td class="site-td">${computer.price}</td>
-  //               <td class="site-td">{computer.memory}</td>
-  //               <td class="site-td">{computer.storage}</td>
-  //               <td class="site-td">{computer.processor}</td>
-  //               <td class="site-td">{computer.processor_gen}</td>
-  //               <td class="site-td">{computer.graphics}</td>
-  //               <td class="site-td"><button name="purchase">Purchase</button></td>
-  //               <input type="checkbox" /> </tr>
-  //           ))}
-  //         </tbody>
-  //       </table>
-  //     </>
-  //   );
-  // }
-
-  function Footer() {
+  function ShowComparedComputers() {
     return (
-      <div style={{ position: 'absolute', bottom: '0', width: '100%' }}>
-        <footer style={{ textAlign: 'center', backgroundColor: 'gray', color: 'white', fontStyle: 'italic', marginTop: '250px' }}>
-          &copy; 2023 Gasherbrum Project Groups
-        </footer>
-      </div>
-    )
+      <>
+        <table style={{ width: '55%', margin: '0 auto', marginTop: '0' }}>
+          <tr>
+            <th class="site-th">Price</th>
+            <th class="site-th">Memory</th>
+            <th class="site-th">Storage</th>
+            <th class="site-th">Processor</th>
+            <th class="site-th">Processor Generation</th>
+            <th class="site-th">Graphics</th>
+            <th class="site-th">Total Price (w/ Shipping)</th>
+            <th class="site-th">Purchase</th>
+            <th class="site-th">Compare</th>
+          </tr>
+          <tbody>
+            {compareList.map((computer) => (
+              <tr key={computer.computer_id}>
+                <td class="site-td">${computer.price}</td>
+                <td class="site-td">{computer.memory}</td>
+                <td class="site-td">{computer.storage}</td>
+                <td class="site-td">{computer.processor}</td>
+                <td class="site-td">{computer.processor_gen}</td>
+                <td class="site-td">{computer.graphics}</td>
+                <td class="site-td">${computer.totalPrice.toFixed(2)}</td>
+                <td class="site-td"><button name="purchase" onClick={() => PurchaseComputer(computer.computer_id, computer.store_name, computer.totalPrice)}>Purchase</button></td>
+                <td class="site-td"><input type="checkbox" checked = {compareList.includes(computer)} onClick={() => handleCompareComputer(computer)}/></td>
+                </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
+    );
+  }
+
+  function PurchaseComputer(id, store, price){
+    axios.post('https://sc61diucga.execute-api.us-east-2.amazonaws.com/purchaseComputer/purchaseComputer', {
+      id: id,
+      store: store,
+      price: price
+  })
+      .then(function (response) {
+        console.log(response)
+          if (response.data.statusCode === 200) {
+            setRedrawList(redrawList+1)
+              alert('Computer purchased')
+          }
+          else {
+              alert('Computer has been purchased by someone else.')
+              setRedrawList(redrawList+1)
+          }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }
 
