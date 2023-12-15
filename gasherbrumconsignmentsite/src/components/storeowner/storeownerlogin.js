@@ -49,6 +49,8 @@ function StoreOwnerLogin() {
       <div id="storeCreation">
         <StoreCreation />
       </div>
+      <br />
+      <button name="logout" onClick={() => navigate('/')}>Return to Home</button>
     </div>
   );
 }

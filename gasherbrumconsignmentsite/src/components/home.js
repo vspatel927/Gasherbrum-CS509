@@ -74,7 +74,7 @@ function Home() {
           {!showCompare && <GenerateFilteredComputers />}
           {showCompare && <ShowComparedComputers />}
         </div>
-        <div class="custLocation" style={{width: '15%'}}>
+        <div class="custLocation" style={{ width: '15%' }}>
           <CustomerCoordinates />
           {compareList.length >= 2 && !showCompare && <button onClick={() => setShowCompare(!showCompare)}>Compare </button>}
           {showCompare && <button onClick={() => setShowCompare(!showCompare)}>Exit Compare </button>}
@@ -334,8 +334,8 @@ function Home() {
                 <td class="site-td">{computer.graphics}</td>
                 <td class="site-td">${computer.totalPrice.toFixed(2)}</td>
                 <td class="site-td"><button name="purchase" onClick={() => PurchaseComputer(computer.computer_id, computer.store_name, computer.totalPrice)}>Purchase</button></td>
-                <td class="site-td"><input type="checkbox" checked = {compareList.includes(computer)} onClick={() => handleCompareComputer(computer)}/></td>
-                </tr>
+                <td class="site-td"><input type="checkbox" checked={compareList.includes(computer)} onClick={() => handleCompareComputer(computer)} /></td>
+              </tr>
             ))}
           </tbody>
         </table>
@@ -368,13 +368,13 @@ function Home() {
     )
   }
 
-  function handleCompareComputer(computer){
-      setCompareList((prevCompareComputers) => {
-        const isChecked = prevCompareComputers.includes(computer);
-        return isChecked
-          ? prevCompareComputers.filter((value) => value !== computer)
-          : [...prevCompareComputers, computer];
-      });
+  function handleCompareComputer(computer) {
+    setCompareList((prevCompareComputers) => {
+      const isChecked = prevCompareComputers.includes(computer);
+      return isChecked
+        ? prevCompareComputers.filter((value) => value !== computer)
+        : [...prevCompareComputers, computer];
+    });
   }
 
   function ShowComparedComputers() {
@@ -403,8 +403,8 @@ function Home() {
                 <td class="site-td">{computer.graphics}</td>
                 <td class="site-td">${computer.totalPrice.toFixed(2)}</td>
                 <td class="site-td"><button name="purchase" onClick={() => PurchaseComputer(computer.computer_id, computer.store_name, computer.totalPrice)}>Purchase</button></td>
-                <td class="site-td"><input type="checkbox" checked = {compareList.includes(computer)} onClick={() => handleCompareComputer(computer)}/></td>
-                </tr>
+                <td class="site-td"><input type="checkbox" checked={compareList.includes(computer)} onClick={() => handleCompareComputer(computer)} /></td>
+              </tr>
             ))}
           </tbody>
         </table>
@@ -412,22 +412,22 @@ function Home() {
     );
   }
 
-  function PurchaseComputer(id, store, price){
+  function PurchaseComputer(id, store, price) {
     axios.post('https://sc61diucga.execute-api.us-east-2.amazonaws.com/purchaseComputer/purchaseComputer', {
       id: id,
       store: store,
       price: price
-  })
+    })
       .then(function (response) {
         console.log(response)
-          if (response.data.statusCode === 200) {
-            setRedrawList(redrawList+1)
-              alert('Computer purchased')
-          }
-          else {
-              alert('Computer has been purchased by someone else.')
-              setRedrawList(redrawList+1)
-          }
+        if (response.data.statusCode === 200) {
+          setRedrawList(redrawList + 1)
+          alert('Computer purchased')
+        }
+        else {
+          alert('Computer has been purchased by someone else.')
+          setRedrawList(redrawList + 1)
+        }
       })
       .catch(error => {
         console.log(error);

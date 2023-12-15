@@ -30,6 +30,8 @@ function SiteManagerLogin() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
+      <br />
+      <button name="logout" onClick={() => navigate('/')}>Return to Home</button>
     </div>
   );
 }
