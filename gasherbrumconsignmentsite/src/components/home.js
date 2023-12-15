@@ -25,17 +25,6 @@ function Home() {
   const [redrawList, setRedrawList] = useState(0)
 
   useEffect(() => {
-    axios
-      .get('https://f96at78893.execute-api.us-east-2.amazonaws.com/getStores/getStores')
-      .then((response) => {
-        setlistOfStores(response.data.body)
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, [])
-
-  useEffect(() => {
     axios.post('https://trm1ekoc27.execute-api.us-east-2.amazonaws.com/filterComputer/filterComputer', {
       price: priceFilter,
       memory: memoryFilter,
@@ -48,12 +37,25 @@ function Home() {
       longitude: customerLong
     })
       .then(function (response) {
+        console.log(response)
         setComputerList(response.data.body)
       })
       .catch(error => {
         console.log(error);
       });
   }, [priceFilter, memoryFilter, storageFilter, processorFilter, processorGenFilter, graphicsFilter, storeFilter, customerLat, customerLong, redrawList]);
+
+  useEffect(() => {
+    axios
+      .get('https://f96at78893.execute-api.us-east-2.amazonaws.com/getStores/getStores')
+      .then((response) => {
+        console.log(response)
+        setlistOfStores(response.data.body)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [])
 
   return (
     <div style={{ backgroundColor: 'rgb(60, 194, 185)', }} >

@@ -51,6 +51,9 @@ function StoreOwnerLogin() {
       </div>
       <br />
       <button name="logout" onClick={() => navigate('/')}>Return to Home</button>
+      <br />
+      <button name="sitemanagerlogin" onClick={() => navigate('/sitemanagerlogin')}>Site Manager Login</button>
+
     </div>
   );
 }
