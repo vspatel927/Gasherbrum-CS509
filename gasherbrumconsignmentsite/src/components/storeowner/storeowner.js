@@ -10,6 +10,8 @@ function StoreOwner() {
     const [editState, setEditState] = useState(false)
     const [editingComputer, setEditingComputer] = useState(0)
 
+    const [redrawList, setRedrawList] = useState(0)
+
 
     const handleClick = () => setShowComponent(!showComponent)
 
@@ -129,6 +131,7 @@ function StoreOwner() {
             .then(function (response) {
 
                 if (response.data.statusCode === 200) {
+                    setRedrawList(redrawList+1)
                     alert('Computer created')
                 }
                 else {
@@ -154,7 +157,7 @@ function StoreOwner() {
                 .catch(error => {
                     console.log(error);
                 });
-        }, [editState]);
+        }, [editState, redrawList]);
         function removeComputer(computerId, storeName) {
             axios.post('https://bsvojtow49.execute-api.us-east-2.amazonaws.com/removeComputer/removeComputer', {
                 id: computerId,
@@ -162,8 +165,7 @@ function StoreOwner() {
             })
                 .then(function (response) {
                     if (response.data.statusCode === 200) {
-                        const updatedList = inventoryList.filter(obj => obj.computer_id !== computerId);
-                        setInventoryList(updatedList);
+                        setRedrawList(redrawList+1)
                         alert('Computer successfully deleted.');
                     }
                 })

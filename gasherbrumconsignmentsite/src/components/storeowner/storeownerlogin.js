@@ -49,6 +49,11 @@ function StoreOwnerLogin() {
       <div id="storeCreation">
         <StoreCreation />
       </div>
+      <br />
+      <button name="logout" onClick={() => navigate('/')}>Return to Home</button>
+      <br />
+      <button name="sitemanagerlogin" onClick={() => navigate('/sitemanagerlogin')}>Site Manager Login</button>
+
     </div>
   );
 }
@@ -103,6 +108,9 @@ function handleCreation(storeName, storePassword, storeLatitude, storeLongtitude
     .then(function (response) {
       if (response.data.statusCode === 200) {
         alert('Created store. Login now')
+      }
+      else{
+        alert('Error')
       }
     })
     .catch(function (error) {
